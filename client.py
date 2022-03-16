@@ -4,73 +4,113 @@ import  os
 import time 
 
 def inp():
-    dataString=''
+    dataString=[]
     num = int(input("Enter The Number of Elements"))
     for i in range(num):
-        val = input("Enter Numbers : ")
-        dataString = dataString +','+ str(val)
+        if i == 0:
+            dataString = input("Enter Numbers : ")
+        else:
+            val = input("Enter Numbers : ")
+            dataString = dataString +','+ str(val)
     return dataString
 
 
 def diventry():
     val1 = input("Enter Divident")
     val2 = input("Enter Divisors")
-    return str(val1)+','+str(val2)
+    return str(val1)+','+str(val2)+','
 
 def simple():
     princ = input("Enter Principal Amount")
     time = input("Enter Time in Years")
     rate = input("Enter Rate of Interest")
-    return str(princ)+','+str(time)+','+str(rate)
+    return str(princ)+','+str(time)+','+str(rate)+','
 
 def compoundint():
     princ = input("Enter Principal Amount : ")
     time = input("Enter Time in Years : ")
     rate = input("Enter Rate of Interest : ")
     n = input("Interest Applied Per time Period : ")
-    return str(princ)+','+str(time)+','+str(rate)+','+str(n)
+    return str(princ)+','+str(time)+','+str(rate)+','+str(n)+','
 
-
+def angleentry():
+    angleX = input("Enter The value of X : ")
+    return str(angleX)+','
     
 def numericalcal():
     run = False
+    data = -1
     while run:
         os.system('cls')
         choice  = input("1.Addition\n2.Substraction\n3.Multiplication\n4.Division\n5.Main Menu\nEnter Your Choice :")
         if choice == "1":
             data=inp()+"1"
+            break
         elif choice == "2":
             data = inp()+"2"
+            break
         elif choice == "3":
             data = inp()+"3"
+            break
         elif choice == "4":
             data = diventry()+"4"
+            break
         elif choice == "5":
             mainmenu()
+            break
         else:
             print("Wrong Entry ...")
 
-        if run == False:
-            return data
+        
+            
+    return data
     
 def fincal():
     run = True
+    data = -1
     while run:
         os.system('cls')
         choice  = input("1.Simple Interest\n2.Compound Interest\n3.Main Menu\nEnter Your Choice :")
         if choice == "1":
             data=simple()+"5"
+            break
         elif choice == "2":
             data = compoundint()+"6"
+            break
         elif choice == "3":
             mainmenu()
+            break
         else:
             print("Wrong Entry ...")
             run = False
-        return data
+        
+    return data
 
 
-serverIP =  ""
+def trigcal():
+    run = True
+    data = -1
+    while run:
+        os.system('cls')
+        choice  = input("1.SinX\n2.CosX\n3.TanX\n4.Main Menu\nEnter Your Choice :")
+        if choice == "1":
+            data = angleentry()+"7"
+            break
+        elif choice == "2":
+            data = angleentry()+"8"
+            break
+        elif choice == "3":
+            data = angleentry()+"9"
+            break
+        elif choice == "4":
+            mainmenu()
+            break
+        else:
+            print("Wrong Entry ...")    
+
+    return data
+
+serverIP =  "localhost"
 print("Connecting to server ...\n")
 
 
