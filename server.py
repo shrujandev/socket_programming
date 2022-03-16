@@ -1,18 +1,56 @@
 import socket
+import threading
 
-# Create a stream based socket(i.e, a TCP socket)
 
-# operating on IPv4 addressing scheme
 
-serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
 
-# Bind and listen
+def keepalive(clientConnected,clientAddress):
+    print("Accepted a connection request from %s:%s" % (clientAddress[0], clientAddress[1]))
+    with clientConnected:
+        clientConnected.settimeout(3)
+        while (True):
+            try:
+                dataFromClient = clientConnected.recv(1024)
+                d=dataFromClient.decode()
+                f=d.split(',')
+                n=len(f)
 
-serverSocket.bind(("192.168.98.76", 12000));
+                if  f[n-1]=='1':
+                    sum1=add1(f)
 
-serverSocket.listen(4);
+                elif f[n-1]=='2':
+                    sum1=sub1(f)
+                elif f[n-1]=='3':
+                    sum1=mul1(f)
+                elif f[n-1]=='4':
+                    sum1=div1(f)
+                else:
+                    sum1=-1
+                # Send some data back to the client
+                sum2 = str(sum1);
+                clientConnected.send(sum2.encode())
+            except Exception as e:
+                print("client disconnected ...")
+                clientConnected.close()
+                break
+    
+    
 
-# Accept connections
+    
+
+
+def listenConnections():
+    serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
+    serverSocket.bind(("192.168.98.76", 12000));
+    while True:
+        serverSocket.listen(4)
+        (clientConnected, clientAddress) = serverSocket.accept();
+        persistantThread = threading.Thread(target =keepalive ,args =(clientConnected,clientAddress))
+        persistantThread.start()
+
+
+
+
 def add1(f):
    n=len(f)
    s=0
@@ -42,30 +80,3 @@ def div1(f):
 
 
 
-while (True):
-    (clientConnected, clientAddress) = serverSocket.accept();
-
-    print("Accepted a connection request from %s:%s" % (clientAddress[0], clientAddress[1]));
-
-    dataFromClient = clientConnected.recv(1024)
-
-    d=dataFromClient.decode()
-    f=d.split(',')
-    n=len(f)
-
-    if  f[n-1]=='1':
-        sum1=add1(f)
-
-    elif f[n-1]=='2':
-        sum1=sub1(f)
-    elif f[n-1]=='3':
-        sum1=mul1(f)
-    elif f[n-1]=='4':
-        sum1=div1(f)
-    else:
-        sum1=-1
-    # Send some data back to the client
-    sum2 = str(sum1);
-
-    clientConnected.send(sum2.encode())
-    clientConnected.close()
