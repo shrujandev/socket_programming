@@ -4,15 +4,9 @@ import  os
 import time 
 
 def inp():
-    dataString=[]
-    num = int(input("Enter The Number of Elements"))
-    for i in range(num):
-        if i == 0:
-            dataString = input("Enter Numbers : ")
-        else:
-            val = input("Enter Numbers : ")
-            dataString = dataString +','+ str(val)
-    return dataString
+    val1 = input("Enter Number 1")
+    val2 = input("Enter Number 2")
+    return str(val1)+','+str(val2)+','
 
 
 def diventry():
@@ -38,7 +32,7 @@ def angleentry():
     return str(angleX)+','
     
 def numericalcal():
-    run = False
+    run = True
     data = -1
     while run:
         os.system('cls')
@@ -108,19 +102,9 @@ def trigcal():
         else:
             print("Wrong Entry ...")    
 
-    return data
-
-serverIP =  "localhost"
-print("Connecting to server ...\n")
+    return str(data)
 
 
-
-
-clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
-clientSocket.connect((serverIP,12000))
-print("Connection Established\n")
-time.sleep(3)
-os.system('cls')
 
 # Connect to the server
 
@@ -128,14 +112,16 @@ def mainmenu():
     run = True
 
     while run:
+        clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
+        clientSocket.connect((serverIP,12000))
         os.system('cls')
         choice  = input("Main Menu\n1.Simple Calculator\n2.Trignometric Calculator\n3.Financial Calculator\n4.Exit\nEnter Your Choice :")
         if choice == "1":
-            data=numericalcal()
+            senddata=numericalcal()
         elif choice == "2":
-            data = trigcal()
+            senddata = trigcal()
         elif choice == "3":
-            data = fincal()
+            senddata = fincal()
         elif choice == "4":
             run = False
             print("Exit Initiated...")
@@ -143,10 +129,25 @@ def mainmenu():
             exit(0)
         else:
             print("Invalid Choice...")
-            time.sleep(3)
-   
+            time.sleep(1)
+
+        clientSocket.send(senddata.encode());
+        dataFromServer = clientSocket.recv(1024);
+        print(dataFromServer.decode());
+        clientSocket.close()
+        input("Press Enter to Continue ...")
     
-    clientSocket.send(data.encode());
-    dataFromServer = clientSocket.recv(1024);
-    print(dataFromServer.decode());
-    clientSocket.close()
+    
+    
+
+    #clientSocket.close()
+
+
+serverIP =  "localhost"
+print("Connecting to server ...\n")
+mainmenu()
+
+
+
+
+
