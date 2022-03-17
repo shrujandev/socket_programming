@@ -23,9 +23,7 @@ def mul1(f):
 
 def sub1(f):
     n=len(f)
-    s = int(f[0])
-    for i in range(0,n-1):
-        s=s-int(f[i])
+    s = int(f[0])-int(f[1])
     return s
 
 def div1(f):
@@ -72,11 +70,11 @@ def keepalive(clientConnected,clientAddress):
     elif opCode == '6':
         result = compound(f)
     elif opCode == '7':
-        result = math.sin(f[0])
+        result = math.sin(float(f[0]))
     elif opCode == '8':
-        result = math.cos(f[0])
+        result = math.cos(float(f[0]))
     elif opCode == '9':
-        result =math.tan(f[0])
+        result =math.tan(float(f[0]))
     else:
         result=-1            
                 # Send some data back to the client
