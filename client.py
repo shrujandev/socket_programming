@@ -4,20 +4,20 @@ import  os
 import time 
 
 def inp():
-    val1 = input("Enter Number 1")
-    val2 = input("Enter Number 2")
+    val1 = input("Enter Number 1 : ")
+    val2 = input("Enter Number 2 : ")
     return str(val1)+','+str(val2)+','
 
 
 def diventry():
-    val1 = input("Enter Divident")
-    val2 = input("Enter Divisors")
+    val1 = input("Enter Divident : ")
+    val2 = input("Enter Divisors : ")
     return str(val1)+','+str(val2)+','
 
 def simple():
-    princ = input("Enter Principal Amount")
-    time = input("Enter Time in Years")
-    rate = input("Enter Rate of Interest")
+    princ = input("Enter Principal Amount : ")
+    time = input("Enter Time in Years : ")
+    rate = input("Enter Rate of Interest : ")
     return str(princ)+','+str(time)+','+str(rate)+','
 
 def compoundint():
@@ -76,7 +76,7 @@ def fincal():
             break
         else:
             print("Wrong Entry ...")
-            run = False
+            time.sleep(1)
         
     return data
 
@@ -100,7 +100,8 @@ def trigcal():
             mainmenu()
             break
         else:
-            print("Wrong Entry ...")    
+            print("Wrong Entry ...")  
+            time.sleep(1)  
 
     return str(data)
 
@@ -113,7 +114,7 @@ def mainmenu():
 
     while run:
         clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
-        clientSocket.connect((serverIP,12000))
+        clientSocket.connect((serverIP,9000))
         os.system('cls')
         choice  = input("Main Menu\n1.Simple Calculator\n2.Trignometric Calculator\n3.Financial Calculator\n4.Exit\nEnter Your Choice :")
         if choice == "1":
@@ -125,6 +126,7 @@ def mainmenu():
         elif choice == "4":
             run = False
             print("Exit Initiated...")
+            time.sleep(1)
             clientSocket.close()
             exit(0)
         else:
@@ -143,7 +145,7 @@ def mainmenu():
     #clientSocket.close()
 
 
-serverIP =  "localhost"
+serverIP = "192.168.109.76"
 print("Connecting to server ...\n")
 mainmenu()
 
