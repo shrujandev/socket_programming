@@ -1,4 +1,3 @@
-
 import socket
 import  os
 import time 
@@ -6,12 +5,6 @@ import time
 def inp():
     val1 = input("Enter Number 1 : ")
     val2 = input("Enter Number 2 : ")
-    return str(val1)+','+str(val2)+','
-
-
-def diventry():
-    val1 = input("Enter Divident : ")
-    val2 = input("Enter Divisors : ")
     return str(val1)+','+str(val2)+','
 
 def simple():
@@ -36,7 +29,7 @@ def numericalcal():
     data = -1
     while run:
         os.system('cls')
-        choice  = input("1.Addition\n2.Substraction\n3.Multiplication\n4.Division\n5.Main Menu\nEnter Your Choice :")
+        choice  = input("1.Addition\n2.Substraction\n3.Multiplication\n4.Division\n5.Log\n6.Main Menu\nEnter Your Choice :")
         if choice == "1":
             data=inp()+"1"
             break
@@ -47,9 +40,14 @@ def numericalcal():
             data = inp()+"3"
             break
         elif choice == "4":
-            data = diventry()+"4"
+            data = inp()+"4"
             break
+            
         elif choice == "5":
+            initdata = input("Enter the Value : ")
+            data = str(initdata)+','+"10"
+            break
+        elif choice == "6":
             mainmenu()
             break
         else:
@@ -114,7 +112,7 @@ def mainmenu():
 
     while run:
         clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
-        clientSocket.connect((serverIP,9000))
+        clientSocket.connect((serverIP,12000))
         os.system('cls')
         choice  = input("Main Menu\n1.Simple Calculator\n2.Trignometric Calculator\n3.Financial Calculator\n4.Exit\nEnter Your Choice :")
         if choice == "1":
@@ -145,7 +143,7 @@ def mainmenu():
     #clientSocket.close()
 
 
-serverIP = "192.168.109.76"
+serverIP = "192.168.178.76"
 print("Connecting to server ...\n")
 mainmenu()
 
